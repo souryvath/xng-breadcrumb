@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: '@xng/xng-breadcrumb',
+  displayName: '@xng/my-xng',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -14,7 +14,7 @@ module.exports = {
       },
     },
   },
-  coverageDirectory: '../../coverage/libs/xng-breadcrumb',
+  coverageDirectory: '../../coverage/libs/my-xng',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

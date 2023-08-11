@@ -1,6 +1,6 @@
 ---
 name: '🧩 Feature request'
-about: Suggest an idea for xng-breadcrumb
+about: Suggest an idea for my-xng
 title: ''
 labels: enhancement
 assignees: ''

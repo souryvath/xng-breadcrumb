@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BreadcrumbService } from '@xng/xng-breadcrumb';
+import { BreadcrumbService } from '@xng/my-xng';
 
 @Component({
   selector: 'app-layout',

@@ -1,6 +1,6 @@
 ---
 name: '🐞 Bug report'
-about: Report a bug in xng-breadcrumb
+about: Report a bug in my-xng
 title: ''
 labels: bug
 assignees: ''

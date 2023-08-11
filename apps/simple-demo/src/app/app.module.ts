@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { BreadcrumbModule } from '@xng/xng-breadcrumb';
+import { BreadcrumbModule } from '@xng/my-xng';
 import { AppRoutingModule } from './app.routing.module';
 
 import { AppComponent } from './app.component';

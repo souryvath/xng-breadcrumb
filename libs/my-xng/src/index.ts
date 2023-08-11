@@ -1,5 +1,5 @@
 /*
- * Public API Surface of xng-breadcrumb
+ * Public API Surface of my-xng
  */
 
 export * from './lib/breadcrumb-item.directive';

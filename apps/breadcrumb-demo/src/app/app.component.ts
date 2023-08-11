@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'xng-breadcrumb-app';
+  title = 'my-xng-app';
   darkMode = false;
 
   constructor(private router: Router) {}

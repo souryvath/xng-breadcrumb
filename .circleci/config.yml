@@ -164,7 +164,7 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
       - run:
           name: Publish library to npm
-          command: npm publish ./dist/libs/xng-breadcrumb
+          command: npm publish ./dist/libs/my-xng
 
 workflows:
   version: 2

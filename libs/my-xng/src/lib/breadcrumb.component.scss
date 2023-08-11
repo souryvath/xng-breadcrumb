@@ -1,9 +1,9 @@
-.xng-breadcrumb-root {
+.my-xng-root {
   margin: 0;
   color: rgba(0, 0, 0, 0.6);
 }
 
-.xng-breadcrumb-list {
+.my-xng-list {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -11,17 +11,17 @@
   padding: 0;
 }
 
-.xng-breadcrumb-item {
+.my-xng-item {
   list-style: none;
 }
 
-.xng-breadcrumb-trail {
+.my-xng-trail {
   display: flex;
   align-items: center;
   color: rgba(0, 0, 0, 0.9);
 }
 
-.xng-breadcrumb-link {
+.my-xng-link {
   display: flex;
   align-items: center;
   white-space: nowrap;
@@ -31,16 +31,16 @@
   cursor: pointer;
 }
 
-.xng-breadcrumb-link:hover {
+.my-xng-link:hover {
   text-decoration: underline;
 }
 
-.xng-breadcrumb-link-disabled {
+.my-xng-link-disabled {
   pointer-events: none;
   cursor: disabled;
 }
 
-.xng-breadcrumb-separator {
+.my-xng-separator {
   display: flex;
   user-select: none;
   margin-left: 8px;

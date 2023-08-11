@@ -59,7 +59,7 @@ describe('breadcrumb-demo', () => {
     cy.get('bd-mentee-list .mat-card-avatar').eq(0).click();
     getDefaultBreadcrumbs().contains('Mentee (Root)').should('not.exist'); // defined on parent module
     getDefaultBreadcrumbs().contains('student'); // Defined on child module
-    cy.get('#default .xng-breadcrumb-link.xng-breadcrumb-link-disabled').should(
+    cy.get('#default .my-xng-link.my-xng-link-disabled').should(
       'exist'
     ); // defined on grand child component
   });

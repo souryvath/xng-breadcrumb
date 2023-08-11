@@ -30,7 +30,7 @@
       "tags": [],
       "implicitDependencies": ["breadcrumb-demo"]
     },
-    "xng-breadcrumb": {
+    "my-xng": {
       "tags": []
     },
     "got-demo": {

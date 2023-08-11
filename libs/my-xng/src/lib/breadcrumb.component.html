@@ -1,5 +1,5 @@
-<nav aria-label="breadcrumb" class="xng-breadcrumb-root" [ngClass]="class">
-  <ol class="xng-breadcrumb-list">
+<nav aria-label="breadcrumb" class="my-xng-root" [ngClass]="class">
+  <ol class="my-xng-list">
     <ng-container
       *ngFor="
         let breadcrumb of breadcrumbs$ | async;
@@ -9,16 +9,18 @@
         count as count
       "
     >
-      <li class="xng-breadcrumb-item">
+      <li class="my-xng-item">
         <a
           *ngIf="!isLast"
-          (click)="handleRoute(breadcrumb)"
-          (keydown.enter)="handleRoute(breadcrumb)"
-          class="xng-breadcrumb-link"
-          [ngClass]="{ 'xng-breadcrumb-link-disabled': breadcrumb.disable }"
+          class="my-xng-link"
+          [ngClass]="{ 'my-xng-link-disabled': breadcrumb.disable }"
           [attr.aria-disabled]="breadcrumb.disable"
           [attr.tabIndex]="breadcrumb.disable ? -1 : 0"
           role="button"
+          href="{{  breadcrumb.routeInterceptor
+            ? breadcrumb.routeInterceptor(breadcrumb.routeLink, breadcrumb)
+            : breadcrumb.routeLink}}"
+          title="{{breadcrumb.info ? breadcrumb.info.title : ''}}"
         >
           <ng-container
             *ngTemplateOutlet="
@@ -38,7 +40,7 @@
           }}</ng-container>
         </a>
 
-        <label *ngIf="isLast" class="xng-breadcrumb-trail">
+        <label *ngIf="isLast" class="my-xng-trail">
           <ng-container
             *ngTemplateOutlet="
               itemTemplate;
@@ -60,7 +62,7 @@
 
       <li
         *ngIf="!isLast"
-        class="xng-breadcrumb-separator"
+        class="my-xng-separator"
         aria-hidden="true"
         role="separator"
       >

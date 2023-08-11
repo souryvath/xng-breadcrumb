@@ -13,7 +13,7 @@ import { BreadcrumbItemDirective } from './breadcrumb-item.directive';
 import { BreadcrumbDefinition, BreadcrumbService } from './breadcrumb.service';
 
 @Component({
-  selector: 'xng-breadcrumb',
+  selector: 'my-xng',
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -61,9 +61,9 @@ export class BreadcrumbComponent implements OnInit {
    * separator between breadcrumbs, defaults to '/'.
    * User can customize separator either by passing a String or Template
    *
-   * String --> Ex: <xng-breadcrumb separator="-"> </xng-breadcrumb>
+   * String --> Ex: <my-xng separator="-"> </my-xng>
    *
-   * Template --> Ex: <xng-breadcrumb [separator]="separatorTemplate"> </xng-breadcrumb>
+   * Template --> Ex: <my-xng [separator]="separatorTemplate"> </my-xng>
    * <ng-template #separatorTemplate><mat-icon>arrow_right</mat-icon></ng-template>
    */
   @Input('separator')
@@ -99,7 +99,7 @@ export class BreadcrumbComponent implements OnInit {
           })
           .map((breadcrumb: BreadcrumbDefinition) => {
             // Do not mutate breadcrumb as its source of truth.
-            // There can be scenarios where we can have multiple xng-breadcrumb instances in page
+            // There can be scenarios where we can have multiple my-xng instances in page
             return {
               ...breadcrumb,
               queryParams: this.preserveQueryParams

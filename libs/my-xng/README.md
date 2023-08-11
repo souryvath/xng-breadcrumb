@@ -1,15 +1,15 @@
-<h1 align="center" style="color: teal">xng-breadcrumb</h1>
+<h1 align="center" style="color: teal">my-xng</h1>
 
 <div align="center">
 
-> A lightweight, declarative and configurable breadcrumbs solution for Angular 6 and beyond. <https://www.npmjs.com/package/xng-breadcrumb>
+> A lightweight, declarative and configurable breadcrumbs solution for Angular 6 and beyond. <https://www.npmjs.com/package/my-xng>
 
-[![npm version](https://img.shields.io/npm/v/xng-breadcrumb.svg)](https://www.npmjs.com/package/xng-breadcrumb)
-![bundle size](https://img.shields.io/bundlephobia/minzip/xng-breadcrumb)
-[![license](https://img.shields.io/npm/l/xng-breadcrumb.svg)](https://github.com/udayvunnam/xng-breadcrumb/blob/main/LICENSE)
-![npm downloads](https://img.shields.io/npm/dt/xng-breadcrumb?style=social)
+[![npm version](https://img.shields.io/npm/v/my-xng.svg)](https://www.npmjs.com/package/my-xng)
+![bundle size](https://img.shields.io/bundlephobia/minzip/my-xng)
+[![license](https://img.shields.io/npm/l/my-xng.svg)](https://github.com/udayvunnam/my-xng/blob/main/LICENSE)
+![npm downloads](https://img.shields.io/npm/dt/my-xng?style=social)
 
-[![CircleCI](https://circleci.com/gh/udayvunnam/xng-breadcrumb.svg?shield&circle-token=:circle-token)](https://circleci.com/gh/udayvunnam/xng-breadcrumb)
+[![CircleCI](https://circleci.com/gh/udayvunnam/my-xng.svg?shield&circle-token=:circle-token)](https://circleci.com/gh/udayvunnam/my-xng)
 ![Twitter follow](https://img.shields.io/twitter/follow/udayvunnam_?style=social)
 
 </div>
@@ -21,15 +21,15 @@
 
 ## Demo
 
-[Live Demo](https://xng-breadcrumb.netlify.com) - A demo app showcasing `xng-breadcrumb` usage in an Angular app. Navigate through different links to see breadcrumbs behavior.
+[Live Demo](https://my-xng.netlify.com) - A demo app showcasing `my-xng` usage in an Angular app. Navigate through different links to see breadcrumbs behavior.
 
 <p align="center">
-  <a href="https://xng-breadcrumb.netlify.com/dashboard" rel="noopener" target="_blank" ><img width="500" src="https://user-images.githubusercontent.com/20707504/68575589-61287880-0492-11ea-9084-80587321c5c4.png" alt="xng-breadcrumb usage"></a></p>
+  <a href="https://my-xng.netlify.com/dashboard" rel="noopener" target="_blank" ><img width="500" src="https://user-images.githubusercontent.com/20707504/68575589-61287880-0492-11ea-9084-80587321c5c4.png" alt="my-xng usage"></a></p>
 </p>
 
 ## Features
 
-- ✅ **Zero configuration**: Just add `<xng-breadcrumb></xng-breadcrumb>` anywhere in the app. Breadcrumb labels will be **auto-generated** by analyzing Angular Route configuration in your App.
+- ✅ **Zero configuration**: Just add `<my-xng></my-xng>` anywhere in the app. Breadcrumb labels will be **auto-generated** by analyzing Angular Route configuration in your App.
 
 - ✅ **Custom labels**: each route can have a custom label defined via Angular Route Config. The labels will be picked automatically while forming breadcrumbs
 
@@ -50,15 +50,15 @@
 1. Install via npm or yarn
 
 ```javascript
-npm install --save xng-breadcrumb
+npm install --save my-xng
 //------------- OR --------------
-yarn add xng-breadcrumb
+yarn add my-xng
 ```
 
 2. Import 'BreadcrumbModule' in your Application
 
 ```javascript
-import {BreadcrumbModule} from 'xng-breadcrumb';
+import {BreadcrumbModule} from 'my-xng';
 @NgModule({
   ...
   imports: [BreadcrumbModule],
@@ -67,16 +67,16 @@ import {BreadcrumbModule} from 'xng-breadcrumb';
 export class AppModule { }
 ```
 
-3. Add 'xng-breadcrumb' selector, wherever you plan to show breadcrumbs
+3. Add 'my-xng' selector, wherever you plan to show breadcrumbs
 
 ```html
-<xng-breadcrumb></xng-breadcrumb>
+<my-xng></my-xng>
 ```
 
 4. (Optional) Use BreadcrumbService, if you want to change breadcrumbs behavior(visibility, label, etc) dynamically.
 
 ```javascript
-import { BreadcrumbService } from 'xng-breadcrumb';
+import { BreadcrumbService } from 'my-xng';
 
 constructor(private breadcrumbService: BreadcrumbService) {}
 // Code examples with BreadcrumbService are given below, under Usage section
@@ -88,7 +88,7 @@ Note: XngBreadcrumb has a peer dependency on `@angular/router`. Include `RouterM
 
 ### Angular Version Compatibility
 
-| xng-breadcrumb | Angular        |
+| my-xng | Angular        |
 | -------------- | -------------- |
 | 4.x.x          | 6.x, 7.x       |
 | 6.x.x          | 8.x, 9.x, 10.x |
@@ -258,11 +258,11 @@ You can display whatever you want in the place of breadcrumb text by providing a
 ```
 
 ```html
-<xng-breadcrumb>
+<my-xng>
   <ng-container *xngBreadcrumbItem="let breadcrumb">
     <ng-container>{{ breadcrumb | titlecase }}</ng-container>
   </ng-container>
-</xng-breadcrumb>
+</my-xng>
 ```
 
 #### Add icons in front of label
@@ -286,14 +286,14 @@ You can display whatever you want in the place of breadcrumb text by providing a
 ```
 
 ```html
-<xng-breadcrumb>
+<my-xng>
   <ng-container
     *xngBreadcrumbItem="let breadcrumb; let info = info; let first = first"
   >
     <mat-icon *ngIf="info">{{ info }}</mat-icon>
     <ng-container *ngIf="!first">{{ breadcrumb }}</ng-container>
   </ng-container>
-</xng-breadcrumb>
+</my-xng>
 ```
 
 #### Internationalization - i18n
@@ -303,29 +303,29 @@ You can display whatever you want in the place of breadcrumb text by providing a
 - For example, if you are using ngx-translate you can change the language for breadcrumb text as shown below.
 
 ```html
-<xng-breadcrumb>
+<my-xng>
   <ng-container *xngBreadcrumbItem="let breadcrumb">
     <ng-container>{{ breadcrumb | translate }}</ng-container>
   </ng-container>
-</xng-breadcrumb>
+</my-xng>
 ```
 
 ### Custom separator
 
 - Breadcrumb uses '/' as the separator by default.
-- To use custom separator pass **separator** as an input to `<xng-breadcrumb>`.
+- To use custom separator pass **separator** as an input to `<my-xng>`.
 - You can either use a simple string(>>, -, -->) or a component (mat-icon, fa-icon) as a separator.
 
 #### string as separator
 
 ```html
-<xng-breadcrumb separator=">"></xng-breadcrumb>
+<my-xng separator=">"></my-xng>
 ```
 
 #### icon or component as separator
 
 ```html
-<xng-breadcrumb [separator]="iconTemplate"></xng-breadcrumb>
+<my-xng [separator]="iconTemplate"></my-xng>
 
 <ng-template #iconTemplate>
   <mat-icon>arrow_right</mat-icon>
@@ -334,22 +334,22 @@ You can display whatever you want in the place of breadcrumb text by providing a
 
 ### Custom Breadcrumb Styles
 
-- `<xng-breadcrumb>` defines the least possible specificity for selectors, to make it easy to override them.
+- `<my-xng>` defines the least possible specificity for selectors, to make it easy to override them.
 - override styles by changing the CSS for corresponding classes. (Keep this styles in app root styles file if you don't want to use ::ng-deep)
-- Below is a visualization of various classes involved in xng-breadcrumb to help you for easy identification.
-- (Optional) xng-breadcrumb takes 'class' as input. This class will be applied to the root of the breadcrumb. This can be used to increase specificity when there are conflicting styles.
+- Below is a visualization of various classes involved in my-xng to help you for easy identification.
+- (Optional) my-xng takes 'class' as input. This class will be applied to the root of the breadcrumb. This can be used to increase specificity when there are conflicting styles.
 
   ![image](https://user-images.githubusercontent.com/20707504/68110000-f61af700-ff11-11e9-8834-bc754a46b39d.png)
 
 ```css
-.xng-breadcrumb-root {
+.my-xng-root {
   padding: 8px 16px;
   display: inline-block;
   border-radius: 4px;
   background-color: #e7f1f1;
 }
 
-.xng-breadcrumb-separator {
+.my-xng-separator {
   padding: 0 4px;
 }
 ```
@@ -361,7 +361,7 @@ You can display whatever you want in the place of breadcrumb text by providing a
 - If you want to disable this behavior, set `[autoGenerate]=false`.
 
 ```html
-<xng-breadcrumb [autoGenerate]="false"></xng-breadcrumb>
+<my-xng [autoGenerate]="false"></my-xng>
 ```
 
 ### Intercept the routing via breadcrumb navigation - routeInterceptor
@@ -411,7 +411,7 @@ breadcrumbService.set('home', {
 | breadcrumb: {info}    | arbitrary info for a breadcrumb.                                 | `string   | object`     | `undefined` |
 | breadcrumb: {label}   | same as breadcrumb. Use label if breadcrumb is defined as object | `string`  | `undefined` |
 
-### xng-breadcrumb component
+### my-xng component
 
 | Input               | Description                                               | Type      | Default            |
 | ------------------- | --------------------------------------------------------- | --------- | ------------------ |
@@ -477,7 +477,7 @@ This project was generated using [Nx](https://nx.dev).
 
 If you wish to contribute to this repository, below are the steps for local development.
 
-- Clone the repository `git clone https://github.com/udayvunnam/xng-breadcrumb.git`
+- Clone the repository `git clone https://github.com/udayvunnam/my-xng.git`
 - Run `yarn` to install the dependencies
 - Run `yarn start` to build and watch both the library and the demo app. This opens the demo app at `http://localhost:4200/` automatically.
 
@@ -510,7 +510,7 @@ CircleCI gets notified on every new tag push and publishes the library if build 
 
 _**You can create your library with complete automated setup for build, tests, and release. Check this blog post for best practices and implementation details of this library [blog post](https://dev.to/udayvunnam/be-the-thanos-of-your-angular-library-11oe)**_
 
-<!-- - ✅ **Schematics**: Use schematics to add and update the library with `ng add xng-breadcrumb` and `ng update xng-breadcrumb` -->
+<!-- - ✅ **Schematics**: Use schematics to add and update the library with `ng add my-xng` and `ng update my-xng` -->
 
 <!-- ### Alternative: Angular Devkit 6+
 
@@ -518,5 +518,5 @@ If you are using Angular CLI 6+, just use `ng add` command to update your Angula
 ![](https://user-images.githubusercontent.com/20707504/65815404-9e031d80-e20c-11e9-9052-0a195da6c244.gif)
 
 ```
-ng add xng-breadcrumb
+ng add my-xng
 ``` -->

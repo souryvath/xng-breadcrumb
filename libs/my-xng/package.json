@@ -1,19 +1,19 @@
 {
-  "name": "xng-breadcrumb",
+  "name": "my-xng",
   "version": "6.6.1",
   "license": "MIT",
-  "description": "A declarative and reactive breadcrumb approach for Angular 6 and beyond https://www.npmjs.com/package/xng-breadcrumb",
+  "description": "A declarative and reactive breadcrumb approach for Angular 6 and beyond https://www.npmjs.com/package/my-xng",
   "author": {
     "name": "Uday Vunnam",
     "email": "uday4vunnam@gmail.com"
   },
-  "homepage": "https://github.com/udayvunnam/xng-breadcrumb",
+  "homepage": "https://github.com/udayvunnam/my-xng",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/udayvunnam/xng-breadcrumb.git"
+    "url": "git+https://github.com/udayvunnam/my-xng.git"
   },
   "bugs": {
-    "url": "https://github.com/udayvunnam/xng-breadcrumb/issues",
+    "url": "https://github.com/udayvunnam/my-xng/issues",
     "email": "uday4vunnam@gmail.com"
   },
   "keywords": [

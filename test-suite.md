@@ -9,7 +9,7 @@
 // route - /path
 // route - /path/:id
 // route - /path/:id/subpath/:subpathid
-<xng-breadcrumb>
+<my-xng>
 ```
 
 ## should pick labels from route config
