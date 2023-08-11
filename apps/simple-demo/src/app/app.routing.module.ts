@@ -1,27 +1,66 @@
+import { PageComponent } from './page.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { Page1Component } from './page1.component';
-import { Page2Component } from './page2.component';
 
 export const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'page1',
+    redirectTo: 'homepage',
     pathMatch: 'full',
   },
   {
-    path: 'page1',
-    component: Page1Component,
+    path: 'homepage',
+    component: PageComponent,
     data: {
-      breadcrumb: 'FirstPage',
+      breadcrumb: 'Dashboard',
     },
   },
   {
-    path: 'page2',
-    component: Page2Component,
-    data: {
-      breadcrumb: 'Next Page',
-    },
+    path: 'company',
+    data: { breadcrumb: 'Companies' },
+    children: [
+      { path: '', component: PageComponent },
+      {
+        path: ':companyId',
+        data: { breadcrumb: 'Company Name' },
+        children: [
+          { path: '', component: PageComponent },
+          {
+            path: 'order',
+            data: { breadcrumb: 'Orders' },
+            children: [
+              { path: '', component: PageComponent },
+              {
+                path: ':orderId',
+                data: { breadcrumb: 'Order Details' },
+                children: [
+                  { path: '', component: PageComponent },
+                  {
+                    path: 'items',
+                    component: PageComponent,
+                    data: {
+                      breadcrumb: {
+                        alias: 'orderItems',
+                      },
+                    },
+                  },
+                  {
+                    path: 'payment',
+                    component: PageComponent,
+                    data: { breadcrumb: 'Payment Info' },
+                  },
+                  {
+                    path: 'delivery',
+                    component: PageComponent,
+                    data: { breadcrumb: 'Delivery Details' },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
 ];
 

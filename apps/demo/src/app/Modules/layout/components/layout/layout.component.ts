@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+<<<<<<< HEAD
 import { BreadcrumbService } from '@xng/my-xng';
+=======
+import { BreadcrumbService } from 'xng-breadcrumb';
+>>>>>>> b31cb894c3840682f98af3c97d07b45524e205ff
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
+  styleUrls: ['./layout.component.css'],
 })
 export class LayoutComponent implements OnInit {
   constructor(

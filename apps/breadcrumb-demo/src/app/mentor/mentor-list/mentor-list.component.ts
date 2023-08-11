@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 
 import { DataService } from '../../core/data.service';
 import { Mentor } from '../../shared/models/mentor';
+<<<<<<< HEAD
 import { BreadcrumbService } from '@xng/my-xng';
+=======
+import { BreadcrumbService } from 'xng-breadcrumb';
+>>>>>>> b31cb894c3840682f98af3c97d07b45524e205ff
 
 @Component({
   selector: 'bd-mentor-list',
   templateUrl: './mentor-list.component.html',
-  styleUrls: ['./mentor-list.component.scss'],
+  styleUrls: ['./mentor-list.component.css'],
 })
 export class MentorListComponent implements OnInit {
   mentors: Mentor[];

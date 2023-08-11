@@ -6,8 +6,8 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BreadcrumbItemDirective } from './breadcrumb-item.directive';
 import { BreadcrumbDefinition, BreadcrumbService } from './breadcrumb.service';
@@ -15,11 +15,10 @@ import { BreadcrumbDefinition, BreadcrumbService } from './breadcrumb.service';
 @Component({
   selector: 'my-xng',
   templateUrl: './breadcrumb.component.html',
-  styleUrls: ['./breadcrumb.component.scss'],
+  styleUrls: ['./breadcrumb.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
 export class BreadcrumbComponent implements OnInit {
-  subscription: Subscription;
   breadcrumbs$: Observable<BreadcrumbDefinition[]>;
   separatorTemplate: TemplateRef<void>;
   private _separator = '/';
@@ -58,6 +57,11 @@ export class BreadcrumbComponent implements OnInit {
   @Input() class = '';
 
   /**
+   * anchorTarget = "_blank" makes the breadcrumb link open in a new tab
+   */
+  @Input() anchorTarget: '_blank' | undefined;
+
+  /**
    * separator between breadcrumbs, defaults to '/'.
    * User can customize separator either by passing a String or Template
    *
@@ -80,10 +84,23 @@ export class BreadcrumbComponent implements OnInit {
     return this._separator;
   }
 
+  setupMessage = 'not set up yet';
+  someParameterValue = null;
+
   constructor(
     private breadcrumbService: BreadcrumbService,
-    private router: Router
-  ) {}
+    activateRoute: ActivatedRoute
+  ) {
+    // breadcrumb inside ngIf works only this way
+    activateRoute.params.subscribe((params) => {
+      this.setupComponent(params['someParam']);
+    });
+  }
+
+  setupComponent(someParam) {
+    this.setupMessage = 'set up at ' + new Date();
+    this.someParameterValue = someParam;
+  }
 
   ngOnInit() {
     this.breadcrumbs$ = this.breadcrumbService.breadcrumbs$.pipe(
@@ -100,23 +117,13 @@ export class BreadcrumbComponent implements OnInit {
           .map((breadcrumb: BreadcrumbDefinition) => {
             // Do not mutate breadcrumb as its source of truth.
             // There can be scenarios where we can have multiple my-xng instances in page
+            const { routeInterceptor, routeLink } = breadcrumb;
             return {
               ...breadcrumb,
-              queryParams: this.preserveQueryParams
-                ? breadcrumb.queryParams
-                : undefined,
-              fragment: this.preserveFragment ? breadcrumb.fragment : undefined,
+              routeLink: routeInterceptor?.(routeLink, breadcrumb) || routeLink,
             };
           });
       })
     );
-  }
-
-  handleRoute(breadcrumb: BreadcrumbDefinition) {
-    const routeLink = breadcrumb.routeInterceptor
-      ? breadcrumb.routeInterceptor(breadcrumb.routeLink, breadcrumb)
-      : breadcrumb.routeLink;
-    const { queryParams, fragment } = breadcrumb;
-    this.router.navigate([routeLink], { queryParams, fragment });
   }
 }

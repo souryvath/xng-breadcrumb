@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD:libs/my-xng/package.json
   "name": "my-xng",
   "version": "6.6.1",
+=======
+  "name": "xng-breadcrumb",
+  "version": "7.2.0",
+>>>>>>> b31cb894c3840682f98af3c97d07b45524e205ff:libs/xng-breadcrumb/package.json
   "license": "MIT",
   "description": "A declarative and reactive breadcrumb approach for Angular 6 and beyond https://www.npmjs.com/package/my-xng",
   "author": {
@@ -24,9 +29,10 @@
     "ngx"
   ],
   "peerDependencies": {
-    "@angular/core": ">=9.0.0",
-    "@angular/router": ">=9.0.0",
-    "@angular/common": ">=9.0.0",
-    "rxjs": "*"
+    "@angular/core": ">=13.0.0",
+    "@angular/common": ">=13.0.0",
+    "@angular/router": ">=13.0.0",
+    "rxjs": ">=6.0.0",
+    "@angular/platform-browser-dynamic": ">=13.0.0"
   }
 }

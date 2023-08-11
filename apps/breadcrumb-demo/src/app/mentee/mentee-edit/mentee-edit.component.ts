@@ -4,7 +4,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
+<<<<<<< HEAD
 import { BreadcrumbService } from '@xng/my-xng';
+=======
+import { BreadcrumbService } from 'xng-breadcrumb';
+>>>>>>> b31cb894c3840682f98af3c97d07b45524e205ff
 import {
   MatAutocomplete,
   MatAutocompleteSelectedEvent,
@@ -18,7 +22,7 @@ import { Mentee } from '../../shared/models/mentee';
 @Component({
   selector: 'bd-mentee-edit',
   templateUrl: './mentee-edit.component.html',
-  styleUrls: ['./mentee-edit.component.scss'],
+  styleUrls: ['./mentee-edit.component.css'],
 })
 export class MenteeEditComponent implements OnInit {
   menteeId: string;

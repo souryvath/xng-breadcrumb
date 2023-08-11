@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  GuardsCheckEnd,
+  Router,
+} from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Breadcrumb } from './types/breadcrumb';
 import {
-  BreadcrumbObject,
   BreadcrumbFunction,
+  BreadcrumbObject,
 } from './types/breadcrumb.config';
 
 type BreadcrumbConfig = BreadcrumbObject | BreadcrumbFunction | string;
@@ -57,18 +62,32 @@ export class BreadcrumbService {
    * Whenever route changes build breadcrumb list again
    */
   private detectRouteChanges() {
+    // Special case where breadcrumb service & component instantiates after a route is navigated.
+    // Ex: put breadcrumbs within *ngIf and this.router.events would be empty
+    // This check is also required where  { initialNavigation: 'enabledBlocking' } is applied to routes
+    this.setupBreadcrumbs(this.activatedRoute.snapshot);
+
     this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
-        this.previousBreadcrumbs = this.currentBreadcrumbs;
-        // breadcrumb label for base OR root path. Usually, this can be set as 'Home'
-        const rootBreadcrumb = this.getRootBreadcrumb();
-        this.currentBreadcrumbs = rootBreadcrumb ? [rootBreadcrumb] : [];
-        this.prepareBreadcrumbList(this.activatedRoute.root, this.baseHref);
+      .pipe(filter((event) => event instanceof GuardsCheckEnd))
+      .subscribe((event) => {
+        // activatedRoute doesn't carry data when shouldReuseRoute returns false
+        // use the event data with GuardsCheckEnd as workaround
+        // Check for shouldActivate in case where the authGuard returns false the breadcrumbs shouldn't be changed
+        if (event instanceof GuardsCheckEnd && event.shouldActivate) {
+          this.setupBreadcrumbs(event.state.root);
+        }
       });
   }
 
-  private getRootBreadcrumb() {
+  private setupBreadcrumbs(activatedRouteSnapshot: ActivatedRouteSnapshot) {
+    this.previousBreadcrumbs = this.currentBreadcrumbs;
+    // breadcrumb label for base OR root path. Usually, this can be set as 'Home'
+    const rootBreadcrumb = this.getRootBreadcrumb();
+    this.currentBreadcrumbs = rootBreadcrumb ? [rootBreadcrumb] : [];
+    this.prepareBreadcrumbList(activatedRouteSnapshot, this.baseHref);
+  }
+
+  private getRootBreadcrumb(): Breadcrumb | void {
     const rootConfig = this.router.config.find((config) => config.path === '');
     const rootBreadcrumb = this.extractObject(rootConfig?.data?.breadcrumb);
     const storeItem = this.getFromStore(rootBreadcrumb.alias, '/');
@@ -84,13 +103,16 @@ export class BreadcrumbService {
   }
 
   private prepareBreadcrumbItem(
-    activatedRoute: ActivatedRoute,
+    activatedRouteSnapshot: ActivatedRouteSnapshot,
     routeLinkPrefix: string
   ): BreadcrumbDefinition {
     const { path, breadcrumb } = this.parseRouteData(
-      activatedRoute.routeConfig
+      activatedRouteSnapshot.routeConfig
     );
-    const resolvedSegment = this.resolvePathSegment(path, activatedRoute);
+    const resolvedSegment = this.resolvePathSegment(
+      path,
+      activatedRouteSnapshot
+    );
     const routeLink = `${routeLinkPrefix}${resolvedSegment}`;
     const storeItem = this.getFromStore(breadcrumb.alias, routeLink);
 
@@ -116,32 +138,31 @@ export class BreadcrumbService {
   }
 
   private prepareBreadcrumbList(
-    activatedRoute: ActivatedRoute,
+    activatedRouteSnapshot: ActivatedRouteSnapshot,
     routeLinkPrefix: string
-  ): Breadcrumb[] {
-    if (activatedRoute.routeConfig && activatedRoute.routeConfig.path) {
+  ): Breadcrumb[] | void {
+    if (activatedRouteSnapshot.routeConfig?.path) {
       const breadcrumbItem = this.prepareBreadcrumbItem(
-        activatedRoute,
+        activatedRouteSnapshot,
         routeLinkPrefix
       );
       this.currentBreadcrumbs.push(breadcrumbItem);
 
-      if (activatedRoute.firstChild) {
+      if (activatedRouteSnapshot.firstChild) {
         return this.prepareBreadcrumbList(
-          activatedRoute.firstChild,
+          activatedRouteSnapshot.firstChild,
           breadcrumbItem.routeLink + '/'
         );
       }
-    } else if (activatedRoute.firstChild) {
+    } else if (activatedRouteSnapshot.firstChild) {
       return this.prepareBreadcrumbList(
-        activatedRoute.firstChild,
+        activatedRouteSnapshot.firstChild,
         routeLinkPrefix
       );
     }
-    const lastCrumb = this.currentBreadcrumbs[
-      this.currentBreadcrumbs.length - 1
-    ];
-    this.setQueryParamsForActiveBreadcrumb(lastCrumb, activatedRoute);
+    const lastCrumb =
+      this.currentBreadcrumbs[this.currentBreadcrumbs.length - 1];
+    this.setQueryParamsForActiveBreadcrumb(lastCrumb, activatedRouteSnapshot);
 
     // remove breadcrumb items that needs to be hidden
     const breadcrumbsToShow = this.currentBreadcrumbs.filter(
@@ -167,7 +188,7 @@ export class BreadcrumbService {
    */
   private matchRegex(routeLink: string, routeRegex: string) {
     const match = routeLink.match(new RegExp(routeRegex));
-    return match && match[0] === routeLink;
+    return match?.[0] === routeLink;
   }
 
   /**
@@ -176,10 +197,13 @@ export class BreadcrumbService {
    *
    * for mentor/:id/view - it gets called with mentor, :id, view 3 times
    */
-  private resolvePathSegment(segment: string, activatedRoute: ActivatedRoute) {
+  private resolvePathSegment(
+    segment: string,
+    activatedRouteSnapshot: ActivatedRouteSnapshot
+  ) {
     //quirk -segment can be defined as view/:id in route config in which case you need to make it view/<resolved-param>
     if (segment.includes(PATH_PARAM.PREFIX)) {
-      Object.entries(activatedRoute.snapshot.params).forEach(([key, value]) => {
+      Object.entries(activatedRouteSnapshot.params).forEach(([key, value]) => {
         segment = segment.replace(`:${key}`, `${value}`);
       });
     }
@@ -201,10 +225,10 @@ export class BreadcrumbService {
    */
   private setQueryParamsForActiveBreadcrumb(
     lastItem: Breadcrumb,
-    activatedRoute: ActivatedRoute
+    activatedRouteSnapshot: ActivatedRouteSnapshot
   ) {
     if (lastItem) {
-      const { queryParams, fragment } = activatedRoute.snapshot;
+      const { queryParams, fragment } = activatedRouteSnapshot;
       lastItem.queryParams = queryParams ? { ...queryParams } : undefined;
       lastItem.fragment = fragment;
     }
@@ -216,7 +240,7 @@ export class BreadcrumbService {
    *
    * Ex: Below we are setting breadcrumb on both parent and child.
    * So, child takes precedence and "Defined On Child" is displayed for the route 'home'
-   * { path: 'home', loadChildren: './home/home.module#HomeModule' , data: {breadcrumb: "Defined On Module"}}
+   * { path: 'home', loadChildren: () => import('./home/home.module').then((m) => m.HomeModule) , data: {breadcrumb: "Defined On Module"}}
    *                                                AND
    * children: [
    *   { path: '', component: ShowUserComponent, data: {breadcrumb: "Defined On Child" }
@@ -298,6 +322,11 @@ export class BreadcrumbService {
         { ...breadcrumbObject, routeLink: this.ensureLeadingSlash(key) },
       ];
     }
+
+    // For this route if previously a breadcrumb is not defined that sets isAutoGeneratedLabel: true
+    // change it to false since this is user supplied value
+    updateArgs[1].isAutoGeneratedLabel = false;
+
     this.updateStore(...updateArgs);
     this.updateCurrentBreadcrumbs(...updateArgs);
   }

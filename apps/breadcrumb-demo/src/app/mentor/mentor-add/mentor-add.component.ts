@@ -14,12 +14,16 @@ import { startWith, map } from 'rxjs/operators';
 import { Mentor } from '../../shared/models/mentor';
 import { allLanguages } from '../../core/in-memory-data.service';
 import { DataService } from '../../core/data.service';
+<<<<<<< HEAD
 import { BreadcrumbService } from '@xng/my-xng';
+=======
+import { BreadcrumbService } from 'xng-breadcrumb';
+>>>>>>> b31cb894c3840682f98af3c97d07b45524e205ff
 
 @Component({
   selector: 'bd-mentor-add',
   templateUrl: './mentor-add.component.html',
-  styleUrls: ['./mentor-add.component.scss'],
+  styleUrls: ['./mentor-add.component.css'],
 })
 export class MentorAddComponent implements OnInit {
   mentor: unknown;
